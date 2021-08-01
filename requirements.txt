@@ -1,0 +1,8 @@
+Django==2.2.9
+pillow>=7.2.0
+djangorestframework>=3.11.0
+djangorestframework-simplejwt>=3.11.0
+django-cors-headers>=3.4.0
+django-crispy-forms>=1.9.1
+psycopg2>=2.7
+mysqlclient>=1.4.6
