@@ -1,2 +1,6 @@
 # enviame-ejercicio1_docker
-test developer enviame
+
+
+```text
+docker-compose up -d --build
+```
