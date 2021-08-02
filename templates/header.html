@@ -1,0 +1,42 @@
+<nav class="navbar navbar-landing navbar-expand-lg navbar-dark bg-gradient-primary p-0">
+    <div class="container-fluid">
+        <a class="navbar-brand mr-auto" href="/" style="font-family:Arial; font-weight: bolder;font-size: 15px;letter-spacing:4px">
+                <i class="fa fa-business-time"></i>
+                Enviame </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar1">
+            <ul class="navbar-nav ml-auto">
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                       <i class="fa fa-user-circle fa fa-1x"></i> | Ernesto Guaman | (<em>Administrador</em>)
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa fa-calendar-check"></i>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="font-size: 13px">
+                    </div>
+                </li>
+                {% if usuario.is_staff %}
+                    <li class="nav-item">
+                        <a class="nav-link page-scroll text-white" href="/admin/" title="Mantenimiento">
+                            <i class="fa fa-cogs"></i>
+                        </a>
+                    </li>
+                {% endif %}
+
+                <li class="nav-item">
+                    <a class="nav-link page-scroll text-white" href="#">
+                        <i class="fa fa-sign-out-alt"></i> Salir
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div> <!-- container //  -->
+</nav>

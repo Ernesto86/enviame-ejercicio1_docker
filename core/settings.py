@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import datetime
+from django.conf.locale.en import formats as es_formats
+es_formats.DATETIME_FORMAT = "Y-m-d H:i:s"
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -40,18 +43,21 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
+    'enviame',
+    'api'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+CORS_ORIGIN_ALLOW_ALL = True
 ROOT_URLCONF = 'core.urls'
 
 TEMPLATES = [
@@ -78,13 +84,23 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
     'default': {
+        #Connection PostgreSQL
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'enviame',
         'USER': 'postgres',
         'PASSWORD': '123',
-        'HOST': 'pgdb',
+        'HOST': 'pgdb', #Docker Postgres
         'PORT': '5432',
-        'ATOMIC_REQUESTS': True
+        'ATOMIC_REQUESTS': True,
+
+        #Connection Mysql
+        # 'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': 'enviame',
+        # 'USER': 'root',
+        # 'PASSWORD': '123',
+        # 'HOST': 'db', #Docker Mysql
+        # 'PORT': '3306',
+        # 'ATOMIC_REQUESTS': True,
     }
 }
 
@@ -126,3 +142,11 @@ USE_L10N = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+
+#STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'belbry', 'static'))
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+STATICFILES_DIRS = (
+  os.path.join(BASE_DIR, 'static'),
+)

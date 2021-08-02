@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load rest_framework %}
+{% block header %}
+    {% include 'header.html' %}
+{% endblock %}
+{% block main %}
+    <article class="container-fluid" style="margin-top: 3.5rem">
+        <div class="row">
+            <div class="col">
+                <nav id="siteBreadcrumb" aria-label="breadcrumb">
+                    <ol class="breadcrumb p-2">
+                        <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 center-x">
+                 <form action="{% url 'editar' pk=empresa.pk %}" method="post">
+                <div class="card shadow mb-4">
+                    <div class="card-header">
+                        <b>Fichero Empresa</b> : {{ accion }}
+                    </div>
+                    <div class="card-body">
+                        {% csrf_token %}
+                        {% render_form serializer template_pack='rest_framework/vertical' %}
+
+                    </div>
+                    <div class="card-footer">
+                        <button id="id-btn-guardar" class="btn btn-success float-right ml-2">
+                            <i class="fa fa-save"></i> Guardar Registro
+                        </button>
+                        <a href="/"
+                           type="button" class="btn btn-secondary float-right">
+                            <i class="fa fa-arrow-left"></i> Atras
+                        </a>
+
+                    </div>
+                </div>
+                 </form>
+            </div>
+        </div>
+    </article>
+{% endblock %}

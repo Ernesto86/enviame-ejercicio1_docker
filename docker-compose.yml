@@ -14,7 +14,10 @@ services:
         volumes:
             - ./src:/src
             - ./config/nginx:/etc/nginx/conf.d
-            - /static:/static          
+            - /static:/static  
+        depends_on:
+            - django  
+
     #Django Service
     django:
         build: .
@@ -23,6 +26,7 @@ services:
         #command: bash -c "python manage.py makemigrations && migrate mydjango.wsgi -b 0.0.0.0:8000"    
         volumes: 
             - .:/usr/src/app
+            - /static:/static
         ports:
             - "8000:8000"
         depends_on:

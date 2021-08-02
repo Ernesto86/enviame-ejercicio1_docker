@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% block header %}
+    {% include 'header.html' %}
+{% endblock %}
+{% block main %}
+    <article id="id-contenedor-main" class="container-fluid" style="margin-top: 3.5rem">
+        <div class="row p-0">
+            <div class="col">
+                <nav id="siteBreadcrumb" aria-label="breadcrumb">
+                    <ol class="breadcrumb p-2">
+                        <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="card shadow mb-4">
+                    <div class="card-header">
+                        <form id="id-form-buscar" action="" method="GET">
+                            {% csrf_token %}
+
+                            <div class="form-row align-items-center">
+                                <div class="col-md col-md-1">
+                                    <a href="{% url 'crear' %}"
+                                       class="btn btn-success btn-block" data-toggle="tooltip"
+                                       title="Agregar nuevo registro">
+                                        <i class="fa fa-plus"></i> Agregar
+                                    </a>
+                                </div>
+
+                                <div class="col-md input-group input-group col-md-6">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-sm">
+                                            <i class="fa fa-business-time"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" name="s" value="{{ s }}" class="form-control"
+                                           placeholder="Buscar empresa por nombre.." required>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="col-md col-md-2">
+                                    <a href="javascript:fn_get_faker();"
+                                       class="btn btn-primary btn-block" data-toggle="tooltip"
+                                       title="Generar nuevos registros">
+                                        <i class="fa fa-download"></i> Generar con FAKER
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-body table-responsive p-0">
+                        <table id="id-tabla-matriculados"
+                               class="table table-striped table-bordered table-sm sm-0 dataTable no-footer"
+                               role="grid">
+                            <thead class="text-center text-sm-center thead-light">
+                            <tr role="row">
+                                <th>Código</th>
+                                <th>Nombre</th>
+                                <th>Tipo</th>
+                                <th>Ciudad</th>
+                                <th>Estado</th>
+                                <th>Creado</th>
+                                <th>Acción</th>
+                            </tr>
+                            </thead>
+                            <tbody class="table-sm">
+                            {% for e in empresas %}
+                                <tr>
+                                    <td align="center">{{ e.codigo }}</td>
+                                    <td>
+                                        <b>{{ e.nombre }}</b>
+                                    </td>
+                                    <td align="center">{{ e.tipo }}</td>
+                                    <td>
+                                        {{ e.ciudad }}
+                                    </td>
+                                    <td align="center">
+                                        {% if e.estado %}
+                                            <i class="fa fa-check-circle text-success"></i>
+                                        {% endif %}
+                                    </td>
+                                    <td align="center">
+                                        {{ e.creadodate }}
+                                    </td>
+                                    <td align="center">
+                                        <div class="btn-group" role="group">
+                                            <button id="btnGroupDrop1" type="button"
+                                                    class="btn btn-primary dropdown-toggle btn-sm"
+                                                    data-toggle="dropdown"
+                                                    aria-haspopup="true" aria-expanded="false">
+                                                Acción
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                                <a href="{% url 'editar' pk=e.pk %}" rel="accion" class="dropdown-item sw-form-modal">
+                                                    <i class="fa fa-edit text-primary"></i> Editar
+                                                </a>
+                                                <div class="divider-text m-1"></div>
+                                                <a href="{% url 'eliminar' pk=e.pk %}" rel="accion" class="dropdown-item retirar_matricula" onclick="return confirm('Seguro de eliminar..')?true:false;">
+                                                    <i class="fa fa-ban text-danger"></i> Eliminar
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="10">
+                                        No se encontró registros..
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </article>
+{% endblock %}
+{% block jscript %}
+    <script>
+        var fn_get_faker = function () {
+          let n = parseInt(prompt("Ingrese la cantidad de registros Fake: "));
+          if(Number.isInteger(n)){
+              window.location='/api/v1/empresas/faker/'+parseInt(n);
+          }else{
+              return false;
+          }
+        };
+    </script>
+{% endblock %}
