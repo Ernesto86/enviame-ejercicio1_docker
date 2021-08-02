@@ -7,3 +7,4 @@ django-crispy-forms>=1.9.1
 psycopg2>=2.7
 mysqlclient>=1.4.6
 faker>=6.6.0
+requests>2.20.1
