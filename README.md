@@ -10,6 +10,10 @@ El contenedor de la base de datos debe ser diferente al que contenga tu aplicaci
 Dentro del ambiente dockerizado desarrolla una API Rest, con el stack de tu preferencia, que implemente un CRUD de una entidad tipo 'empresa'. Preocupate de incluir un script que genere N registros con datos "fake" (utilizando una librería faker).
 
 ###  Pasos para crear los contenedores Docker
+
 ```text
 docker-compose up -d --build
+docker exec -it django python manage.py makemigrations
+docker exec -it django python manage.py migrate
+docker exec -it django python manage.py createsuperuser
 ```
